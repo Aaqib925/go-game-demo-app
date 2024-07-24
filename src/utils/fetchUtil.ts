@@ -19,7 +19,7 @@ export const fetchUtil = async (data: any) => {
     if (token) {
         headers = { ...headers, authorization: `${token}` };
     }
-    return fetch(`http://192.168.100.28:3001/v1${url}`, {
+    return fetch(`http://localhost:3001/v1${url}`, {
         method,
         headers,
         body,
