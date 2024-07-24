@@ -3,10 +3,10 @@ import React, { useCallback, useContext, useEffect, useLayoutEffect, useState } 
 import { useNavigation, useTheme } from '@react-navigation/native'
 import { IAppTheme } from '../../constants/theme';
 import ThemeToggler from '../../components/ThemeToggler';
-import useUserThemeStore from '../../store/theme';
 import { AddTodoBottomSheetContext } from '../../providers/AddTodoBottomSheet';
 import useTodoFirebase from '../../hooks/useTodoFirebase';
 import TodoItemListView from './components/TodoItem';
+import LogoutButton from '../../components/LogoutButton';
 
 const TodosScreen = () => {
 
@@ -21,6 +21,7 @@ const TodosScreen = () => {
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => <ThemeToggler />,
+            headerLeft: () => <LogoutButton />,
         })
     }, [ThemeToggler]);
 

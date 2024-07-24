@@ -13,6 +13,8 @@ import { hp, wp } from '../../utils/responsive';
 import { APP_IMAGES } from '../../assets/images';
 import Button from '../../components/Button';
 import { APP_ROUTES } from '../../navigation/Routes';
+import { useLoginUser } from './hooks/mutation';
+import useAuthStore from '../../store/Auth';
 
 interface LoginFormInputs {
     email: string,
@@ -21,15 +23,18 @@ interface LoginFormInputs {
 
 const schema = yup.object({
     email: yup.string().required("Email is required").min(2, "Email should be of 2 or more characters"),
-    password: yup.string().required("Password  is required").min(2, "Password name must of be 2 or more characters"),
+    password: yup.string().required("Password is required").min(2, "Password name must of be 2 or more characters"),
 }).required();
 
 
 const LoginScreen = () => {
 
     const { colors }: IAppTheme = useTheme();
-
+    const { mutateAsync: loginUserAction, isLoading: isLoginLoading } = useLoginUser()
     const navigation = useNavigation<any>();
+
+    const setIsLoggedIn = useAuthStore(state => state.setIsLoggedIn);
+    const setToken = useAuthStore(state => state.setToken);
 
     const { control, handleSubmit, formState: { isValid, dirtyFields }, watch, setError, clearErrors } = useForm<LoginFormInputs>({
         resolver: yupResolver(schema),
@@ -46,9 +51,19 @@ const LoginScreen = () => {
         })
     }, [ThemeToggler]);
 
-    const onSubmit = useCallback((data: LoginFormInputs): void => {
-        console.log("data", data)
-    }, [])
+    const onSubmit = useCallback(async ({ email, password }: LoginFormInputs) => {
+        try {
+            const { token } = await loginUserAction({ body: { email, password } });
+            if (token) {
+                setToken(token);
+                setIsLoggedIn(true);
+            }
+        }
+        catch (error: any) {
+            const { message } = error;
+            setError('email', { type: 'manual', message });
+        }
+    }, [loginUserAction, setIsLoggedIn, setToken])
 
     const onRegisterPress = useCallback(() => {
         navigation.navigate(APP_ROUTES.AUTH.REGISTER)
@@ -111,6 +126,7 @@ const LoginScreen = () => {
                     onPress={handleSubmit(onSubmit)}
                     text={'Login'}
                     type={'large'}
+                    loading={isLoginLoading}
                 />
                 <TouchableOpacity onPress={onRegisterPress}>
                     <Text style={[styles.registerText, { color: colors.text }]}>Register New Account</Text>

@@ -10,6 +10,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import useAuthStore from './store/Auth'
 import AuthStack from './navigation/Stacks/AuthStack'
+import { QueryClientProvider } from 'react-query'
+import { RNQueryClient } from './service/react-query'
 
 const App = () => {
 
@@ -26,11 +28,13 @@ const App = () => {
         <SafeAreaProvider>
           <BottomSheetModalProvider>
             <NavigationContainer theme={theme === UserTheme.DARK ? CUSTOM_DARK_THEME : CUSTOM_LIGHT_THEME}>
-              <AddTodoBottomSheetProvider>
-                {
-                  isLoggedIn ? <AppStack /> : <AuthStack />
-                }
-              </AddTodoBottomSheetProvider>
+              <QueryClientProvider client={RNQueryClient}>
+                <AddTodoBottomSheetProvider>
+                  {
+                    isLoggedIn ? <AppStack /> : <AuthStack />
+                  }
+                </AddTodoBottomSheetProvider>
+              </QueryClientProvider>
             </NavigationContainer>
           </BottomSheetModalProvider>
         </SafeAreaProvider>
