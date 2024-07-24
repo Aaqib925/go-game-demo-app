@@ -3,8 +3,7 @@ import React, { useCallback, useMemo } from 'react'
 import { useTheme } from '@react-navigation/native';
 import { IAppTheme } from '../../../../constants/theme';
 import { doc } from 'firebase/firestore';
-import { FIRESTORE_DB } from '../../../../firebase/config';
-import { fontResponsive, wp } from '../../../../utils/responsive';
+import { fontResponsive, hp, wp } from '../../../../utils/responsive';
 import { APP_IMAGES } from '../../../../assets/images';
 
 interface Props {
@@ -18,15 +17,14 @@ interface Props {
 const TodoItemListView = ({ title, id, done, toggleTodoDone, deleteTodo }: Props) => {
     const { colors }: IAppTheme = useTheme();
 
-    const docRef = useMemo(() => doc(FIRESTORE_DB, `todos/${id}`), [id]);
 
     const toggleDone = useCallback(() => {
-        toggleTodoDone(docRef, !done)
-    }, [docRef, done])
+        toggleTodoDone(id, !done)
+    }, [id, done])
 
     const onDeleteTodo = useCallback(() => {
-        deleteTodo(docRef);
-    }, [docRef]);
+        deleteTodo(id);
+    }, [id]);
 
     
     return (
@@ -55,6 +53,7 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderRadius: wp(12),
         flexDirection: 'row',
+        marginTop: hp(20),
     },
     titleText: {
         fontSize: fontResponsive(15),

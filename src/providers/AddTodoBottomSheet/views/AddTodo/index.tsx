@@ -8,6 +8,7 @@ import Input from '../../../../components/Input';
 import { BottomSheetTextInput } from '@gorhom/bottom-sheet';
 import Button from '../../../../components/Button';
 import { addTodoToFirebase } from '../../../../service/Todo';
+import { useTodoCreateAction } from './hooks/mutation';
 
 type AddTodoViewProps = {
     navigateToView: (view: AddTodoBottomSheetViews) => void
@@ -19,12 +20,14 @@ const AddTodoView = ({ navigateToView }: AddTodoViewProps) => {
 
     const { closeBottomSheet } = useContext(AddTodoBottomSheetContext);
 
+    const { mutateAsync: createTodoAction, isLoading: isCreateTodoLoading } = useTodoCreateAction()
+
     const [todo, setTodo] = useState<string>('');
 
     const onPressSubmit = useCallback(async () => {
-        await addTodoToFirebase(todo);
+        await createTodoAction({ body: { title: todo } });
         navigateToView('TodoAddedSuccess')
-    }, [todo])
+    }, [todo, createTodoAction])
 
     return (
         <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -44,6 +47,7 @@ const AddTodoView = ({ navigateToView }: AddTodoViewProps) => {
                     onPress={onPressSubmit}
                     text={'Submit'}
                     type={'large'}
+                    loading={isCreateTodoLoading}
                 />
             </View>
         </View>
