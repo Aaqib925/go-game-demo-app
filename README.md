@@ -25,7 +25,7 @@ This is a React Native project using various libraries for API calls, state mana
 Ensure you have the following installed on your machine:
 
 - Node.js (>= 18.x)
-- npm (>= 9.x)
+- npm (>= 8.x)
 - Watchman
 - Xcode (for iOS development)
 - Android Studio (for Android development)
@@ -53,7 +53,7 @@ This project uses the following libraries:
 - `react-query` for API calls
 - `zustand` for state management
 - `lottie-react-native` for animations
-- `yup` and `react-hook-form` for form management and validations
+- `yup` and `react-hook-form` for form management and validation
 
 ## Usage
 
@@ -95,27 +95,31 @@ npx react-native run-android
 
 ## Project Structure
 
-The project's structure is as follows:
-
 ```
 your-project/
 ├── src/
-│   ├── api/
+│   ├── assets/
 │   ├── components/
+│   ├── constants/
 │   ├── hooks/
-│   ├── screens/
+│   ├── navigation/
+│   ├── providers/
+│   ├── service/
 │   ├── store/
-│   ├── styles/
 │   ├── utils/
-│   └── App.js
+│   ├── views/
+│   └── App.tsx
 ├── ios/
 ├── android/
-├── assets/
 ├── node_modules/
+├── .buckconfig
+├── .eslintrc.js
 ├── .gitignore
-├── babel.config.js
-├── index.js
-├── package.json
+├── .node-version
+├── .prettierrc.js
+├── .ruby-version
+├── .watchmanconfig
+├── app.json
 └── README.md
 ```
 
