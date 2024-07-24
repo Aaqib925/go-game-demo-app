@@ -4,13 +4,17 @@ This is a React Native project using various libraries for API calls, state mana
 
 ## Table of Contents
 - [React Native Project](#react-native-project)
-  - [Table of Contents](#table-of-contents)
+  - [Disclaimer](#disclaimer)
+  - [Using Expo for Web](#using-expo-for-web)
+    - [Why React Native Doesn't Support Web Directly](#why-react-native-doesnt-support-web-directly)
+    - [Drawbacks of Using Expo for Web](#drawbacks-of-using-expo-for-web)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Dependencies](#dependencies)
   - [Usage](#usage)
     - [Running on iOS](#running-on-ios)
     - [Running on Android](#running-on-android)
+    - [Running on Web with Expo](#running-on-web-with-expo)
   - [Libraries and Tools](#libraries-and-tools)
     - [react-query](#react-query)
     - [zustand](#zustand)
@@ -20,12 +24,67 @@ This is a React Native project using various libraries for API calls, state mana
   - [Contributing](#contributing)
   - [License](#license)
 
+## Disclaimer
+
+This project supports running on Android, iOS, and the web using Expo. However, it's important to note that React Native does not natively support web platforms, and using Expo for web may come with certain limitations and performance trade-offs.
+
+## Using Expo for Web
+
+To build and run the app for the web using Expo:
+
+1. Install Expo CLI if you haven't already:
+
+   ```sh
+   npm install -g expo-cli
+   ```
+
+2. Initialize the Expo project:
+
+   ```sh
+   expo init go-game-demo-app
+   ```
+
+3. Copy your existing project files into the newly created Expo project.
+
+4. Install the necessary dependencies for Expo:
+
+   ```sh
+   npm install react-native-web @expo/webpack-config
+   ```
+
+5. Add the following to your `package.json` to configure Expo for web:
+
+   ```json
+   "scripts": {
+     "web": "expo start --web"
+   }
+   ```
+
+6. Start the web server:
+
+   ```sh
+   npm run web
+   ```
+
+### Why React Native Doesn't Support Web Directly
+
+React Native was designed primarily for mobile platforms (iOS and Android), which have different APIs and UI paradigms compared to web platforms. Directly supporting the web would require significant changes to the core architecture of React Native to accommodate web-specific features and behaviors.
+
+### Drawbacks of Using Expo for Web
+
+While Expo simplifies the process of running React Native projects on the web, it comes with certain drawbacks:
+
+1. **Performance**: Web performance may not be as optimized as native performance, especially for complex animations and interactions.
+2. **Feature Limitations**: Some native features may not be fully supported on the web, leading to inconsistencies in functionality across platforms.
+3. **Package Compatibility**: Not all React Native packages are compatible with web, requiring additional modifications or replacements.
+4. **Build Size**: The build size for web applications might be larger due to the inclusion of mobile-specific code and libraries.
+
 ## Prerequisites
 
 Ensure you have the following installed on your machine:
 
-- Node.js (>= 18.x)
-- npm (>= 8.x)
+- Node.js (>= 14.x)
+- npm (>= 6.x)
 - Watchman
 - Xcode (for iOS development)
 - Android Studio (for Android development)
@@ -73,6 +132,44 @@ Make sure you have an Android emulator running or a physical device connected:
 npx react-native run-android
 ```
 
+### Running on Web with Expo
+
+To build and run the app for the web using Expo:
+
+1. Install Expo CLI if you haven't already:
+
+   ```sh
+   npm install -g expo-cli
+   ```
+
+2. Initialize the Expo project:
+
+   ```sh
+   expo init go-game-demo-app
+   ```
+
+3. Copy your existing project files into the newly created Expo project.
+
+4. Install the necessary dependencies for Expo:
+
+   ```sh
+   npm install react-native-web @expo/webpack-config
+   ```
+
+5. Add the following to your `package.json` to configure Expo for web:
+
+   ```json
+   "scripts": {
+     "web": "expo start --web"
+   }
+   ```
+
+6. Start the web server:
+
+   ```sh
+   npm run web
+   ```
+
 ## Libraries and Tools
 
 ### react-query
@@ -96,7 +193,7 @@ npx react-native run-android
 ## Project Structure
 
 ```
-your-project/
+go-game-demo-app/
 ├── src/
 │   ├── assets/
 │   ├── components/
