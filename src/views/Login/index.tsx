@@ -40,8 +40,8 @@ const LoginScreen = () => {
         resolver: yupResolver(schema),
         criteriaMode: 'all',
         defaultValues: {
-            email: '',
-            password: ''
+            email: 'aqib@gmail.com',
+            password: 'click123'
         }
     });
 
