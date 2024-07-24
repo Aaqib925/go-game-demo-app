@@ -19,8 +19,6 @@ const App = () => {
 
   const isLoggedIn = useAuthStore(state => state.isLoggedIn);
 
-  console.log("isLoggedIn", isLoggedIn)
-
   return (
     <GestureHandlerRootView style={styles.rootView}>
       <StatusBar barStyle={theme === UserTheme.DARK ? 'light-content' : 'dark-content'} />

@@ -7,8 +7,10 @@ import { APP_IMAGES } from '../../assets/images';
 import { APP_COLORS } from '../../constants/colors';
 import { wp } from '../../utils/responsive';
 import useAuthStore from '../../store/Auth';
+import { useQueryClient } from 'react-query';
 
 const LogoutButton = ({ }: any) => {
+    const queryClient = useQueryClient();
 
     const { colors }: IAppTheme = useTheme();
 
@@ -19,7 +21,9 @@ const LogoutButton = ({ }: any) => {
     const handleOnPressLogout = useCallback(() => {
         setIsLoggedIn(false);
         setToken('');
-    }, [setIsLoggedIn, setToken]);
+        queryClient.clear();
+        queryClient.resetQueries();
+    }, [setIsLoggedIn, setToken, queryClient]);
 
 
     return (
